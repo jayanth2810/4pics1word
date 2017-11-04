@@ -4,6 +4,7 @@ from itertools import permutations
 import json, os
 
 from flask import request, Response
+from flask_cors import cross_origin
 from flask.ext.restplus import fields, Resource
 
 from app import api, app
@@ -65,6 +66,7 @@ def get_list_of_possible_words(characters, number_of_letters):
 
 
 @ns.route('/possible-words')
+@cross_origin()
 class PossibleWords(Resource):
     @api.doc(params={'character_set': 'The Character Set that makes up the word'})
     @api.doc(params={'number_of_letter': 'The number of letters in the word'})

@@ -1,7 +1,7 @@
 __author__ = 'jayanthvenkataraman'
 
 from itertools import permutations
-import os
+import json, os
 
 from flask import request, Response
 from flask_cors import CORS, cross_origin
@@ -51,7 +51,7 @@ def _get_possible_words(characters, number_of_words):
 def set_response_and_return_result(status, message, data, status_code):
     print(status, message, data, status_code)
     result_dict = {"message": message, "status": status, "data": data}
-    return result_dict, status_code
+    return Response(json.dumps(result_dict), status_code)
 
 
 def get_list_of_possible_words(characters, number_of_letters):

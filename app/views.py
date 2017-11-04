@@ -12,12 +12,13 @@ RESOURCES_DIRECTORY = "resources/"
 ENGLISH_WORDS_FILE_NAME = "word_list.txt"
 
 ns = api.namespace('4 Pic 1 Word', description='',
-                                  path='/api/1.0')
+                   path='/api/1.0')
 
 request_field = api.model('Enter the data', {
     'character_set': fields.String(description='The Character Set that makes up the word', required=True),
     'number_of_letter': fields.Integer(description='The number of letters in the word', required=True),
 })
+
 
 def _get_possible_permutations(characters, number_of_letters):
     return [''.join(i) for i in permutations(characters, number_of_letters)]
@@ -51,7 +52,7 @@ def set_response_and_return_result(status, message, data, status_code):
     print("Next Step 4")
     print(status, message, data, status_code)
     result_dict = {"message": message, "status": status, "data": data}
-    #return Response(json.dumps(result_dict), mimetype='application/json'), status_code
+    # return Response(json.dumps(result_dict), mimetype='application/json'), status_code
     return result_dict, status_code
 
 
@@ -68,6 +69,7 @@ def get_list_of_possible_words(characters, number_of_letters):
         return set_response_and_return_result("ERROR",
                                               "Server Error. Please try later",
                                               [], 500)
+
 
 @ns.route('/possible-words')
 class PossibleWords(Resource):

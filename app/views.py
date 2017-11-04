@@ -12,7 +12,7 @@ from app import api, app
 RESOURCES_DIRECTORY = "resources/"
 ENGLISH_WORDS_FILE_NAME = "word_list.txt"
 
-cors = CORS(app)
+cors = CORS(app, support_credentials=True)
 app.config['CORS_HEADERS'] = 'Content-Type'
 
 ns = api.namespace('4 Pic 1 Word', description='',

@@ -4,15 +4,12 @@ from itertools import permutations
 import json, os
 
 from flask import request, Response
-from flask_cors import CORS
 from flask.ext.restplus import fields, Resource
 
 from app import api, app
 
 RESOURCES_DIRECTORY = "resources/"
 ENGLISH_WORDS_FILE_NAME = "word_list.txt"
-
-cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 ns = api.namespace('4 Pic 1 Word', description='',
                    path='/api/1.0')

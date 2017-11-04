@@ -1,16 +1,19 @@
 __author__ = 'jayanthvenkataraman'
 
 from itertools import permutations
-import json, os
+import os
 
 from flask import request, Response
-from flask_cors import cross_origin
+from flask_cors import CORS, cross_origin
 from flask.ext.restplus import fields, Resource
 
 from app import api, app
 
 RESOURCES_DIRECTORY = "resources/"
 ENGLISH_WORDS_FILE_NAME = "word_list.txt"
+
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 ns = api.namespace('4 Pic 1 Word', description='',
                    path='/api/1.0')
@@ -66,13 +69,13 @@ def get_list_of_possible_words(characters, number_of_letters):
 
 
 @ns.route('/possible-words')
-@cross_origin()
 class PossibleWords(Resource):
     @api.doc(params={'character_set': 'The Character Set that makes up the word'})
     @api.doc(params={'number_of_letter': 'The number of letters in the word'})
     @api.response(200, 'Success')
     @api.response(400, 'Bad Request')
     @api.response(500, 'Internal Server Error')
+    @cross_origin()
     def get(self):
         if not request.args.get('character_set') or not request.args.get('number_of_letter'):
             return set_response_and_return_result("ERROR", "Insufficent Input. Enter all inputs", [], 400)

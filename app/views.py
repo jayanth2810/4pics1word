@@ -31,10 +31,7 @@ def _get_valid_english_words(possible_permutations):
     try:
         with open(path) as word_file:
             english_words = set(word.strip().lower() for word in word_file)
-
-        print("Read English Words")
         valid_english_words = [i for i in possible_permutations if i in english_words]
-        print("Next Step 1")
         return set(valid_english_words)
     except Exception as e:
         print("Exception is ", str(e))
@@ -44,15 +41,12 @@ def _get_valid_english_words(possible_permutations):
 def _get_possible_words(characters, number_of_words):
     possible_permutations = _get_possible_permutations(characters, number_of_words)
     valid_english_words = _get_valid_english_words(possible_permutations)
-    print("Next Step 2")
     return valid_english_words
 
 
 def set_response_and_return_result(status, message, data, status_code):
-    print("Next Step 4")
     print(status, message, data, status_code)
     result_dict = {"message": message, "status": status, "data": data}
-    # return Response(json.dumps(result_dict), mimetype='application/json'), status_code
     return result_dict, status_code
 
 
@@ -60,7 +54,6 @@ def get_list_of_possible_words(characters, number_of_letters):
     try:
         valid_answers = list(_get_possible_words(characters, number_of_letters))
         list.sort(valid_answers)
-        print("Next Step 3")
         return set_response_and_return_result("OK",
                                               ' '.join(["There are ", str(len(valid_answers)), " possible answers"]),
                                               valid_answers, 200)
